@@ -78,7 +78,6 @@ def main():
     frame_placeholder = st.empty()
     info_placeholder = st.empty()
 
-    # Capturing the webcam and detecting the objects
     if st.session_state['capture']:
         cap = cv2.VideoCapture(0)
         frame_count = 0
@@ -111,22 +110,29 @@ def main():
             # Count the occurrences of each class
             if not detections.empty:
                 detected_classes = detections['class'].value_counts().to_dict()
+                print('detected_classes',detected_classes)
                 for class_name in class_names:
-                    for idx, detected_class in enumerate(detected_classes):
-                        if idx == 0:
-                            class_counters['person'] = detected_class
-                        elif idx == 1:
-                            class_counters['glasses'] = detected_class
-                        elif idx == 2:
-                            class_counters['bottle'] = detected_class
-                        elif idx == 3:
-                            class_counters['pen'] = detected_class
+                    if 0 in detected_classes:
+                        class_counters['person'] = detected_classes[0]
                         class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
-          
-            #Reset the counters
-            for class_name in class_names:
-                class_count_placeholders[class_name].markdown(f"{class_name}: {0}")
-                class_counters[class_name] = 0
+
+                    if 1 in detected_classes:
+                        class_counters['glasses'] = detected_classes[1]
+                        class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
+
+                    if 2 in detected_classes:
+                        class_counters['bottle'] = detected_classes[2]
+                        class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
+
+                    if 3 in detected_classes:
+                        class_counters['pen'] = detected_classes[3]
+                        class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
+
+            for classes in class_names:
+                class_count_placeholders[class_name].markdown(f"{classes}: {0}")
+                class_counters[classes] = 0
+
+            #class_count_placeholders = {class_name: st.sidebar.text(f"{class_name}: 0") for class_name in class_names}
 
         cap.release()
         st.session_state['capture'] = False
