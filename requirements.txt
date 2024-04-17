@@ -1,7 +1,6 @@
-streamlit==0.88.0
-torch>=1.7.1
-numpy>=1.20.0
-opencv-python>=4.5.3.56
-Pillow>=8.3.1
-
-python_version >= "3.12.2"
+python_version
+streamlit
+torch
+numpy
+opencv-python
+Pillow
