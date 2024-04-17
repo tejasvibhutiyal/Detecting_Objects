@@ -1,11 +1,12 @@
-#Object Detection Project
+# Object Detection Project
+
 This project focuses on detecting objects including "person", "glasses", "pen", and "bottle" using a custom-trained YOLOv5 model. 
 The dataset utilized for training was collected from Roboflow, specifically curated to include images of these objects, with special attention given to images containing people wearing glasses and without glasses to accurately differentiate between "glasses" and "person".
 
-##Dataset
-The dataset contains images of various objects, with a particular emphasis on people wearing glasses and without glasses. This diversity ensures robustness in the model's ability to distinguish between different classes. For access to the preprocessed dataset used in this project, refer to the following link on Hugging Face: Glasses and Pens Merged Dataset.
+## Dataset
+The dataset contains images of various objects, with a particular emphasis on people wearing glasses and without glasses. This diversity ensures robustness in the model's ability to distinguish between different classes. For access to the preprocessed dataset used in this project, refer to the following link on Hugging Face:  <a href = 'https://huggingface.co/datasets/tbhutiyal/glasses_pens_merged_dataset'>Glasses,Pens and bottle Merged Dataset</a>.
 
-##Classes
+## Classes
 The following are the classes that the model is trained to detect:
 
 "person" (Class index: 0)
