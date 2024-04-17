@@ -6,6 +6,8 @@ from PIL import Image
 import time
 from collections import Counter
 # Load the custom model
+import os
+os.environ['TORCH_HOME'] = '/tmp/torch'
 import pathlib
 temp = pathlib.PosixPath
 pathlib.PosixPath = pathlib.WindowsPath
