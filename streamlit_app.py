@@ -10,7 +10,7 @@ import os
 os.environ['TORCH_HOME'] = '/tmp/torch'
 import pathlib
 temp = pathlib.PosixPath
-#pathlib.PosixPath = pathlib.WindowsPath
+pathlib.PosixPath = pathlib.WindowsPath
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='best_weight/best_4.pt', force_reload=True)
 
 
@@ -64,6 +64,7 @@ def main():
     st.sidebar.markdown("**Detected Object Counts**")
     class_names = ['person', 'bottle', 'glasses', 'pen']
     class_counters = {class_name: 0 for class_name in class_names}
+    class_counters_session = {class_name: 0 for class_name in class_names}
     class_count_placeholders = {class_name: st.sidebar.text(f"{class_name}: 0") for class_name in class_names}
 
     # Toggle button for the webcam
@@ -115,24 +116,25 @@ def main():
                 print('detected_classes',detected_classes)
                 for class_name in class_names:
                     if 0 in detected_classes:
-                        class_counters['person'] = detected_classes[0]
+                        class_counters_session['person'] = detected_classes[0]
                         class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
 
                     if 1 in detected_classes:
-                        class_counters['glasses'] = detected_classes[1]
+                        class_counters_session['glasses'] = detected_classes[1]
                         class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
 
                     if 2 in detected_classes:
-                        class_counters['bottle'] = detected_classes[2]
+                        class_counters_session['bottle'] = detected_classes[2]
                         class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
 
                     if 3 in detected_classes:
-                        class_counters['pen'] = detected_classes[3]
+                        class_counters_session['pen'] = detected_classes[3]
                         class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
 
             for classes in class_names:
                 class_count_placeholders[class_name].markdown(f"{classes}: {0}")
-                class_counters[classes] = 0
+                class_counters[classes]+=class_counters_session[classes]
+                class_counters_session[classes] = 0
 
             #class_count_placeholders = {class_name: st.sidebar.text(f"{class_name}: 0") for class_name in class_names}
 
