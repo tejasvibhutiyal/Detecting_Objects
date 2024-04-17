@@ -10,7 +10,7 @@ import os
 os.environ['TORCH_HOME'] = '/tmp/torch'
 import pathlib
 temp = pathlib.PosixPath
-pathlib.PosixPath = pathlib.WindowsPath
+#pathlib.PosixPath = pathlib.WindowsPath
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='best_weight/best_4.pt', force_reload=True)
 
 
