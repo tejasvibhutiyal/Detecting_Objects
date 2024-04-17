@@ -1,0 +1,14 @@
+# Ignore Dataset_of_classes folder
+Dataset_of_classes/
+
+# Ignore detectron folder
+detectron2/
+
+# Ignore yolov5 folder
+yolov5/
+
+# Ignore merged_dataset folder
+merged_dataset/
+
+# Ignore merged_dataset2 folder
+merged_dataset2/
