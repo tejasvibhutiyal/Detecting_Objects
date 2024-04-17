@@ -132,7 +132,7 @@ def main():
                         class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
 
             for classes in class_names:
-                class_count_placeholders[class_name].markdown(f"{classes}: {0}")
+                #class_count_placeholders[classes].markdown(f"{classes}: {0}")
                 class_counters[classes]+=class_counters_session[classes]
                 class_counters_session[classes] = 0
 
