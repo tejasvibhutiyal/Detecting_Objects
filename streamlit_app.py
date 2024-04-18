@@ -32,7 +32,7 @@ def draw_boxes(detections, image):
     Draw bounding boxes on the image for each detection, with special emphasis on specific objects.
     """
     # Specify objects of interest
-    special_objects = ['pen', 'bottle', 'glasses']
+    special_objects = ['person', 'bottle', 'glasses', 'pen']
     # Loop through detections and draw boxes
     for _, row in detections.iterrows():
         xmin, ymin, xmax, ymax = int(row['xmin']), int(row['ymin']), int(row['xmax']), int(row['ymax'])
@@ -62,7 +62,7 @@ def main():
 
     # Sidebar for displaying static class names and counts
     st.sidebar.markdown("**Detected Object Counts**")
-    class_names = ['person', 'bottle', 'glasses', 'pen']
+    class_names = ['person', 'glasses','bottle', 'pen']
     class_counters = {class_name: 0 for class_name in class_names}
     class_counters_session = {class_name: 0 for class_name in class_names}
     class_count_placeholders = {class_name: st.sidebar.text(f"{class_name}: 0") for class_name in class_names}
@@ -77,9 +77,9 @@ def main():
     with stop_button:
         if st.button('Stop Webcam'):
             st.session_state['stop_pressed'] = True
-
-    frame_placeholder = st.empty()
     info_placeholder = st.empty()
+    frame_placeholder = st.empty()
+    
 
     if st.session_state['capture']:
         cap = cv2.VideoCapture(0)
