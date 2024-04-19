@@ -62,10 +62,10 @@ def main():
 
     # Sidebar for displaying static class names and counts
     st.sidebar.markdown("**Detected Object Counts**")
-    class_names = ['person', 'glasses','bottle', 'pen']
-    class_counters = {class_name: 0 for class_name in class_names}
-    class_counters_session = {class_name: 0 for class_name in class_names}
-    class_count_placeholders = {class_name: st.sidebar.text(f"{class_name}: 0") for class_name in class_names}
+    class_names = {0: 'person', 1: 'glasses', 2: 'bottle', 3: 'pen'}
+    class_counters = {class_name: 0 for class_name in class_names.values()}
+    class_counters_session = {class_name: 0 for class_name in class_names.values()}
+    class_count_placeholders = {class_name: st.sidebar.text(f"{class_name}: 0") for class_name in class_names.values()}
 
     # Toggle button for the webcam
     start_button, stop_button = st.columns(2)
@@ -109,32 +109,20 @@ def main():
 
             # Update the frame count and elapsed time display
             info_placeholder.markdown(f"**Frame Count**: {frame_count}, **Elapsed Time**: {elapsed_time:.2f} seconds")
-
+            #class_names = ['person', 'glasses','bottle', 'pen']
+            #class_names = {0:'person', 1:'glasses',2:'bottle',3: 'pen'}
             # Count the occurrences of each class
             if not detections.empty:
                 detected_classes = detections['class'].value_counts().to_dict()
-                print('detected_classes',detected_classes)
-                for class_name in class_names:
-                    if 0 in detected_classes:
-                        class_counters_session['person'] = detected_classes[0]
-                        class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
+                for class_id, count in detected_classes.items():
+                    if class_id in class_names:
+                        class_name = class_names[class_id]
+                        class_counters_session[class_name] += count
+                        class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name] + class_counters_session[class_name]}")
 
-                    if 1 in detected_classes:
-                        class_counters_session['glasses'] = detected_classes[1]
-                        class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
-
-                    if 2 in detected_classes:
-                        class_counters_session['bottle'] = detected_classes[2]
-                        class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
-
-                    if 3 in detected_classes:
-                        class_counters_session['pen'] = detected_classes[3]
-                        class_count_placeholders[class_name].markdown(f"{class_name}: {class_counters[class_name]}")
-
-            for classes in class_names:
-                #class_count_placeholders[classes].markdown(f"{classes}: {0}")
-                class_counters[classes]+=class_counters_session[classes]
-                class_counters_session[classes] = 0
+            for class_name in class_names.values():
+                class_counters[class_name] += class_counters_session[class_name]
+                class_counters_session[class_name] = 0
 
             #class_count_placeholders = {class_name: st.sidebar.text(f"{class_name}: 0") for class_name in class_names}
 
